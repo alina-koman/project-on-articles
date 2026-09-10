@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import { validationResult } from 'express-validator'
 
 import { registerValidation } from './validations/auth.js'
+import checkAuth from "./utils/checkAuth.js"
 
 import UserModel from './models/User.js'
 import User from "./models/User.js";
@@ -90,10 +91,10 @@ app.post('/auth/register', registerValidation, async (req, res) => {
       }
   )
 
-  const {passwordHash, ...useData} = user._doc
+  const {passwordHash, ...userData} = user._doc
 
   res.json({
-   ...useData,
+   ...userData,
    token
   })
  } catch (error) {
@@ -101,6 +102,24 @@ app.post('/auth/register', registerValidation, async (req, res) => {
    res.status(500).json({
     message: 'Не вдалось зареєструватись'
    })
+ }
+})
+
+app.get('/auth/me', checkAuth, async (req, res) => {
+ try {
+  const user = await UserModel.findById(req.userId).select('-passwordHash')
+
+  if (!user) {
+   return res.status(404).json({
+    message: 'Користувача не знайдено'
+   })
+  }
+
+  res.json(user)
+ } catch (error) {
+  res.status(500).json({
+   message: 'Помилка сервера'
+  })
  }
 })
 
