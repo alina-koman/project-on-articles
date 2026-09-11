@@ -3,7 +3,6 @@ import PostModel from "../models/Post.js"
 export const getAll = async (req, res) => {
      try {
          const posts = await PostModel.find().populate('user').exec()
-
          res.json(posts)
      } catch (error) {
          console.log(error)
@@ -11,6 +10,36 @@ export const getAll = async (req, res) => {
              message: 'Не вдалось отримати статті'
          })
      }
+}
+
+export const getOne = async (req, res) => {
+    try {
+        const postId = req.params.id
+
+        const doc = await PostModel.findOneAndUpdate(
+            {
+                _id: postId
+            },
+            {
+                $inc: {viewsCount: 1}
+            },
+            {
+                returnDocument: 'after'
+            })
+
+            if (!doc) {
+               return res.status(404).json({
+                    message: 'Стаття не знайдена'
+                })
+            }
+
+            return  res.json(doc)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Не вдалось отримати статті'
+        })
+    }
 }
 
 export const create = async (req, res) => {
