@@ -64,6 +64,37 @@ export const remove = async (req, res) => {
     }
 }
 
+export const update = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const result = await PostModel.updateOne(
+            { _id:  postId },
+            {
+                title: req.body.title,
+                text: req.body.text,
+                imageUrl: req.body.imageUrl,
+                tags: req.body.tags,
+                user: req.userId
+            }
+        )
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: 'Стаття не знайдена'
+            })
+        }
+
+        res.json({
+            success: true
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Не вдалось оновити статтю'
+        })
+    }
+}
+
 export const create = async (req, res) => {
     try {
         const doc = new PostModel({
