@@ -23,7 +23,7 @@ app.get('/auth/me', checkAuth, getMe)
 app.get('/posts', PostController.getAll)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateValidation,  PostController.create)
-// app.delete( '/posts', PostController.remove)
+app.delete( '/posts/:id', checkAuth, PostController.remove)
 // app.path( '/posts', PostController.update)
 
 app.listen(4444, (err) => {

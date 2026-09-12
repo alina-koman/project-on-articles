@@ -42,6 +42,28 @@ export const getOne = async (req, res) => {
     }
 }
 
+export const remove = async (req, res) => {
+    try {
+        const postId = req.params.id
+        const doc = await PostModel.findOneAndDelete({ _id:  postId })
+
+        if (!doc) {
+            return res.status(404).json({
+                message: 'Стаття не знайдена'
+            })
+        }
+
+        res.json({
+            success: true
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Не вдалось отримати статті'
+        })
+    }
+}
+
 export const create = async (req, res) => {
     try {
         const doc = new PostModel({
