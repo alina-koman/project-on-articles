@@ -9,8 +9,8 @@ import {logout, selectIsAuth} from "../../redux/slices/auth";
 import {Link} from "react-router-dom";
 
 export const Header = () => {
-  const isAuth = useSelector(selectIsAuth)
   const dispatch = useDispatch()
+  const isAuth = useSelector(selectIsAuth)
 
   const onClickLogout = () => {
     if (window.confirm('Ви впевнені, що хочете вийти?')) {
