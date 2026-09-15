@@ -13,7 +13,6 @@ import {fetchAuth, selectIsAuth} from "../../redux/slices/auth";
 
 export const Login = () => {
     const isAuth = useSelector(selectIsAuth)
-
     const dispatch = useDispatch()
 
     const { register, handleSubmit, setError, formState: {errors, isValid} } = useForm({
@@ -52,7 +51,7 @@ export const Login = () => {
                 type="email"
                 error={Boolean(errors.email?.message)}
                 helperText={errors.email?.message}
-                {...register("email", { required: 'Вкажіть пошту ' })}
+                {...register("email", { required: 'Вкажіть пошту' })}
                 fullWidth
             />
             <TextField
@@ -61,9 +60,9 @@ export const Login = () => {
                 type="password"
                 error={Boolean(errors.password?.message)}
                 helperText={errors.password?.message}
-                {...register("password", { required: 'Вкажіть пароль ' })}
+                {...register("password", { required: 'Вкажіть пароль' })}
                 fullWidth />
-            <Button type="submit" size="large" variant="contained" fullWidth>
+            <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
                 Войти
             </Button>
         </form>
