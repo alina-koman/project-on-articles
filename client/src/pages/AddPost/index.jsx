@@ -50,8 +50,8 @@ export const AddPost = () => {
 
             const fields = {
                 title,
-                imageUrl,
-                tags: tags.split(','),
+                tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
+                ...(imageUrl && { imageUrl }),
                 text
             }
             const { data } = await axios.post('/posts', fields)
@@ -60,7 +60,7 @@ export const AddPost = () => {
             navigate(`/posts/${id}`)
         } catch (error) {
             console.warn(error)
-            console.log('Помилка при створення статті!')
+            console.log('Помилка при створення статті!', error.response?.data)
         } finally {
             setLoading(false)
         }
