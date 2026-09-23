@@ -12,7 +12,8 @@ import { CommentsBlock } from '../components/CommentsBlock';
 import {fetchPost, fetchTags} from "../redux/slices/post";
 
 export const Home = () => {
-    const { posts, tags } = useSelector((state) => state.posts)
+    const userData = useSelector((state) => state.auth.data)
+     const { posts, tags } = useSelector((state) => state.posts)
     const dispatch = useDispatch()
 
     const isPostLoading = posts.status === 'loading'
@@ -42,7 +43,7 @@ export const Home = () => {
                       viewsCount={obj.viewsCount }
                       commentsCount={3}
                       tags={obj.tags}
-                      isEditable
+                      isEditable={userData?._id === obj.user._id}
                   />
                   )
           ))}
