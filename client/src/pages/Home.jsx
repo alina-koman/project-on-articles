@@ -15,9 +15,19 @@ export const Home = () => {
     const userData = useSelector((state) => state.auth.data)
      const { posts, tags } = useSelector((state) => state.posts)
     const dispatch = useDispatch()
+    const [selectedTab, setSelectedTab] = React.useState(0)
 
     const isPostLoading = posts.status === 'loading'
     const isTagsLoading = tags.status === 'loading'
+    const sortedPosts = React.useMemo(() => {
+        return [...posts.items].sort((first, second) => {
+            if (selectedTab === 1) {
+                return (second.viewsCount || 0) - (first.viewsCount || 0)
+            }
+
+            return new Date(second.createdAt).getTime() - new Date(first.createdAt).getTime()
+        })
+    }, [posts.items, selectedTab])
 
     useEffect(() => {
         dispatch(fetchPost())
@@ -26,20 +36,26 @@ export const Home = () => {
 
   return (
     <>
-      <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
+      <Tabs
+        style={{ marginBottom: 15 }}
+        value={selectedTab}
+        onChange={(_, value) => setSelectedTab(value)}
+        aria-label="Сортування статей"
+      >
         <Tab label="Нові" />
         <Tab label="Популярні" />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
-          {(isPostLoading ? [...Array(5)] : posts.items).map((obj, index) => (
+          {(isPostLoading ? [...Array(5)] : sortedPosts).map((obj, index) => (
               isPostLoading ? (<Post key={index}  isLoading={true} />) : (
                   <Post
+                      key={obj._id}
                       _id={obj._id}
                       title={obj.title}
                       imageUrl={obj.imageUrl ? obj.imageUrl  : ''}
                       user={obj.user}
-                      createdAt={obj.createAt}
+                      createdAt={obj.createdAt}
                       viewsCount={obj.viewsCount }
                       commentsCount={3}
                       tags={obj.tags}
