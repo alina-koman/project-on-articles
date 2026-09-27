@@ -10,12 +10,15 @@ import { TagsBlock } from '../components/TagsBlock';
 import { CommentsBlock } from '../components/CommentsBlock';
 
 import {fetchPost, fetchTags} from "../redux/slices/post";
+import axios from "../axios";
 
 export const Home = () => {
     const userData = useSelector((state) => state.auth.data)
      const { posts, tags } = useSelector((state) => state.posts)
     const dispatch = useDispatch()
     const [selectedTab, setSelectedTab] = React.useState(0)
+    const [comments, setComments] = React.useState([])
+    const [commentsStatus, setCommentsStatus] = React.useState('loading')
 
     const isPostLoading = posts.status === 'loading'
     const isTagsLoading = tags.status === 'loading'
@@ -28,10 +31,34 @@ export const Home = () => {
             return new Date(second.createdAt).getTime() - new Date(first.createdAt).getTime()
         })
     }, [posts.items, selectedTab])
+    const commentCounts = React.useMemo(() => {
+        return comments.reduce((counts, comment) => {
+            const postId = comment.post?._id
+            if (postId) counts[postId] = (counts[postId] || 0) + 1
+            return counts
+        }, {})
+    }, [comments])
 
     useEffect(() => {
         dispatch(fetchPost())
         dispatch(fetchTags())
+        let isActive = true
+
+        axios.get('/comments')
+            .then(({ data }) => {
+                if (isActive) {
+                    setComments(data)
+                    setCommentsStatus('loaded')
+                }
+            })
+            .catch((error) => {
+                console.warn(error)
+                if (isActive) setCommentsStatus('error')
+            })
+
+        return () => {
+            isActive = false
+        }
     }, [dispatch]);
 
   return (
@@ -57,7 +84,7 @@ export const Home = () => {
                       user={obj.user}
                       createdAt={obj.createdAt}
                       viewsCount={obj.viewsCount }
-                      commentsCount={3}
+                      commentsCount={commentCounts[obj._id] || 0}
                       tags={obj.tags}
                       isEditable={userData?._id === obj.user._id}
                   />
@@ -67,23 +94,10 @@ export const Home = () => {
         <Grid xs={4} item>
           <TagsBlock items={tags.items}  isLoading={isTagsLoading} />
           <CommentsBlock
-            items={[
-              {
-                user: {
-                  fullName: 'Василь Петренко',
-                  avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
-                },
-                text: 'Це тестовий коментар',
-              },
-              {
-                user: {
-                  fullName: 'Іван Коваленко',
-                  avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-                text: 'Якщо текст займає три або більше рядків, аватар не вирівнюється за верхнім краєм. Щоб це виправити, задайте відповідну властивість вирівнювання.',
-              },
-            ]}
-            isLoading={false}
+            items={comments}
+            isLoading={commentsStatus === 'loading'}
+            error={commentsStatus === 'error' ? 'Не вдалося завантажити коментарі.' : undefined}
+            emptyMessage="Поки що немає коментарів до статей."
           />
         </Grid>
       </Grid>

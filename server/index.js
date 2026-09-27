@@ -3,9 +3,9 @@ import mongoose from 'mongoose'
 import multer from 'multer'
 import cors from 'cors'
 
-import {loginValidation, postCreateValidation, registerValidation} from './validations.js'
+import {commentCreateValidation, loginValidation, postCreateValidation, registerValidation} from './validations.js'
 
-import { UserController, PostController } from "./controllers/index.js"
+import { CommentController, UserController, PostController } from "./controllers/index.js"
 import {handleValidationErrors, checkAuth} from "./utils/index.js"
   
 mongoose.connect('mongodb+srv://alinakoman962_db_user:qwerty123@cluster0.tqz0nej.mongodb.net/blog?appName=Cluster0')
@@ -42,8 +42,11 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
 })
 
 app.get('/posts', PostController.getAll)
+app.get('/comments', CommentController.getAll)
 app.get('/tags', PostController.getLastTags)
 app.get('/posts/tags', PostController.getLastTags)
+app.get('/posts/:id/comments', CommentController.getForPost)
+app.post('/posts/:id/comments', checkAuth, commentCreateValidation, handleValidationErrors, CommentController.create)
 app.get('/posts/:id', PostController.getOne)
 app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, PostController.create)
 app.delete( '/posts/:id', checkAuth, PostController.remove)

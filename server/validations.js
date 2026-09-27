@@ -25,3 +25,15 @@ export const  postCreateValidation = [
         .isArray(),
     body("imagesUrl", "Некоректне посилання на зображення").optional().isString()
 ]
+
+export const commentCreateValidation = [
+    body("text")
+        .isString()
+        .withMessage("Текст коментаря має бути рядком")
+        .bail()
+        .trim()
+        .notEmpty()
+        .withMessage("Напишіть текст коментаря")
+        .isLength({ max: 2000 })
+        .withMessage("Коментар не може бути довшим за 2000 символів")
+]
