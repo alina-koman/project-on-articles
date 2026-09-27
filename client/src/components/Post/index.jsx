@@ -47,6 +47,13 @@ export const Post = ({
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
+      {!isFullPost && (
+        <Link
+          className={styles.cardLink}
+          to={`/posts/${_id}`}
+          aria-label={`Відкрити статтю: ${title}`}
+        />
+      )}
       {isEditable && (
         <div className={styles.editButtons}>
           <Link to={ `/posts/${_id}/edit`}>
@@ -70,7 +77,7 @@ export const Post = ({
         <UserInfo {...user} additionalText={createdAt} />
         <div className={styles.indention}>
           <h2 className={clsx(styles.title, { [styles.titleFull]: isFullPost })}>
-            {isFullPost ? title : <Link to={`/posts/${_id}`}>{title}</Link>}
+            {title}
           </h2>
           <ul className={styles.tags}>
             {tags.map((name) => (
