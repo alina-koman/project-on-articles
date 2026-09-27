@@ -28,14 +28,12 @@ export const FullPost = () => {
         return <Post isLoading={isLoading} isFullPost/>
     }
 
-    console.log(data.imageUrl)
-
   return (
     <>
       <Post
           _id={data._id}
           title={data.title}
-          imageUrl={`http://localhost:4444${data.imageUrl}`}
+          imageUrl={data.imageUrl}
           user={data.user}
           createdAt={data.createdAt}
           viewsCount={data.viewsCount }

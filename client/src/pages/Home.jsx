@@ -37,7 +37,7 @@ export const Home = () => {
                   <Post
                       _id={obj._id}
                       title={obj.title}
-                      imageUrl={obj.imageUrl}
+                      imageUrl={obj.imageUrl ? obj.imageUrl  : ''}
                       user={obj.user}
                       createdAt={obj.createAt}
                       viewsCount={obj.viewsCount }

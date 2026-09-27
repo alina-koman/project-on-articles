@@ -7,9 +7,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 
+import axios from '../../axios';
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
 import { PostSkeleton } from './Skeleton';
+import {useDispatch} from "react-redux";
+import {fetchRemovePost} from "../../redux/slices/post";
+import {logout} from "../../redux/slices/auth";
 
 export const Post = ({
   _id,
@@ -25,11 +29,21 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch = useDispatch()
   if (isLoading) {
     return <PostSkeleton />;
   }
 
-  const onClickRemove = () => {};
+  const onClickRemove = async () => {
+    if (window.confirm('Ви впевнені, що хочете видалити статтю?')) {
+      try {
+        await dispatch(fetchRemovePost(_id)).unwrap()
+      } catch (error) {
+        console.warn(error)
+        alert('Не вдалося видалити статтю')
+      }
+    }
+  }
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -48,7 +62,7 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
+          src={new URL(imageUrl, axios.defaults.baseURL).href}
           alt={title}
         />
       )}
