@@ -25,7 +25,7 @@
          required: true
      },
      imageUrl: String,
-     imagesUrl: String,
+      imagesUrl: String,
  }, {
      timestamps: true
  })

@@ -15,6 +15,13 @@ export const  registerValidation = [
 export const  postCreateValidation = [
     body("title", "Введіть заголовок статті").isLength({min: 3}).isString(),
     body("text", "Введіть текст статті").isLength({min: 3}).isString(),
-    body("tags", "Невірний формат тегів (вкажіть масив)").optional().isArray(),
+    body("tags", "Невірний формат тегів")
+        .optional()
+        .customSanitizer((tags) =>
+            typeof tags === "string"
+                ? tags.split(",").map((tag) => tag.trim()).filter(Boolean)
+                : tags
+        )
+        .isArray(),
     body("imagesUrl", "Невірна силка на зображення ").optional().isString()
 ]

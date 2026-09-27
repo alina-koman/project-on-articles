@@ -127,7 +127,7 @@ export const create = async (req, res) => {
             title: req.body.title,
             text: req.body.text,
             imageUrl: req.body.imageUrl,
-            tags : req.body.tags,
+            tags: req.body.tags,
             user: req.userId,
         })
 
