@@ -1,16 +1,18 @@
-$blue: #4361ee;
+$accent: #456b57;
 
 .root {
-  background-color: #fff;
-  border: 1px solid #dedede;
-  border-radius: 6px;
+  background-color: #fffefa;
+  border: 1px solid #e8e4dc;
+  border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   position: relative;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 
   &:hover {
-    border: 1px solid $blue;
-    box-shadow: 0 0 0 1px $blue;
+    border-color: #a9b9ab;
+    box-shadow: 0 8px 24px rgba(41, 47, 43, 0.08);
+    transform: translateY(-1px);
 
     .editButtons {
       opacity: 1;
@@ -19,9 +21,7 @@ $blue: #4361ee;
 
   &Full {
     &:hover {
-      background-color: #fff;
-      border: 1px solid #dedede;
-      box-shadow: none;
+      transform: none;
     }
   }
 }
@@ -66,10 +66,10 @@ $blue: #4361ee;
 
   a {
     text-decoration: none;
-    color: #000;
+    color: #292f2b;
 
     &:hover {
-      color: $blue;
+      color: $accent;
     }
   }
 
@@ -98,7 +98,7 @@ $blue: #4361ee;
 
     a {
       text-decoration: none;
-      color: #000;
+      color: $accent;
     }
   }
 }
@@ -160,7 +160,8 @@ $blue: #4361ee;
   z-index: 2;
   right: 15px;
   top: 15px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #fffefa;
+  border: 1px solid #e8e4dc;
   border-radius: 10px;
   opacity: 0;
   transition: all 0.15s ease-in-out;

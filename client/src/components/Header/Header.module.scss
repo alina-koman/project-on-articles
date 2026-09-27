@@ -1,37 +1,38 @@
 .root {
-  background-color: #fff;
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 30px;
+  background-color: #fffefa;
+  padding: 14px 0;
+  border-bottom: 1px solid #e8e4dc;
+  margin-bottom: 32px;
 }
 
 .inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  background-color: black;
+  background-color: #456b57;
   color: #fff;
   font-weight: 700;
-  line-height: 35px;
-  text-transform: uppercase;
-  letter-spacing: 0.15px;
-  border-radius: 5px;
-  padding: 0 10px;
+  line-height: 38px;
+  border-radius: 9px;
+  padding: 0 14px;
   text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 
   &:hover {
-    background-color: #4361ee;
+    background-color: #34513f;
+    transform: translateY(-1px);
   }
 }
 
 .buttons {
-  button {
-    margin-left: 10px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-  a {
-    text-decoration: none;
+  button {
+    margin-left: 0;
   }
 }
