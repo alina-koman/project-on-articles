@@ -1,4 +1,5 @@
 import PostModel from "../models/Post.js"
+import CommentModel from "../models/Comment.js"
 
 const serializePost = (post) => {
     const data = post.toObject()
@@ -10,12 +11,26 @@ const serializePost = (post) => {
 
 export const getLastTags = async (req, res) => {
     try {
-        const posts = await PostModel.find().limit(5).exec()
+        const posts = await PostModel.find().select("tags").sort({ createdAt: -1 }).lean().exec()
+        const tagsByName = new Map()
 
-        const tags = posts
-            .map((obj) => obj.tags)
-            .flat()
-            .slice(0, 5)
+        for (const post of posts) {
+            for (const value of Array.isArray(post.tags) ? post.tags : []) {
+                if (typeof value !== "string") continue
+
+                const tag = value.trim()
+                if (!tag) continue
+
+                const normalizedTag = tag.toLocaleLowerCase("uk-UA")
+                if (!tagsByName.has(normalizedTag)) {
+                    tagsByName.set(normalizedTag, tag)
+                }
+            }
+        }
+
+        const tags = [...tagsByName.values()].sort((first, second) =>
+            first.localeCompare(second, "uk-UA")
+        )
 
         res.json(tags)
     } catch (error) {
@@ -78,6 +93,8 @@ export const remove = async (req, res) => {
                 message: 'Статтю не знайдено'
             })
         }
+
+        await CommentModel.deleteMany({ post: postId })
 
         res.json({
             success: true
