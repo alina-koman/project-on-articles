@@ -28,7 +28,7 @@ export const Registration = () => {
         const data = await dispatch(fetchRegister(values))
 
         if (!data.payload) {
-            return alert('Не вдалось зареєструватись!')
+            return alert('Не вдалося зареєструватися.')
         }
 
         if ('token' in  data.payload) {
@@ -43,7 +43,7 @@ export const Registration = () => {
   return (
     <Paper classes={{ root: styles.root }}>
         <Typography classes={{ root: styles.title }} variant="h5">
-            Создание аккаунта
+            Створення облікового запису
         </Typography>
         <div className={styles.avatar}>
             <Avatar sx={{ width: 100, height: 100 }} />
@@ -54,13 +54,13 @@ export const Registration = () => {
                 helperText={errors.fullName?.message}
                 {...register("fullName", { required: "Вкажіть повне ім'я" })}
                 className={styles.field}
-                label="Полное имя"
+                label="Повне ім’я"
                 fullWidth />
             <TextField
                 type="email"
                 error={Boolean(errors.email?.message)}
                 helperText={errors.email?.message}
-                {...register("email", { required: 'Вкажіть пошту' })}
+                {...register("email", { required: 'Вкажіть адресу електронної пошти' })}
                 className={styles.field}
                 label="E-Mail" full
                 Width />
@@ -73,7 +73,7 @@ export const Registration = () => {
                 label="Пароль" full
                 Width />
             <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
-                Зарегистрироваться
+                Зареєструватися
             </Button>
         </form>
     </Paper>

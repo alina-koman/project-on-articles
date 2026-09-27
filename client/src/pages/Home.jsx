@@ -27,8 +27,8 @@ export const Home = () => {
   return (
     <>
       <Tabs style={{ marginBottom: 15 }} value={0} aria-label="basic tabs example">
-        <Tab label="Новые" />
-        <Tab label="Популярные" />
+        <Tab label="Нові" />
+        <Tab label="Популярні" />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
@@ -54,17 +54,17 @@ export const Home = () => {
             items={[
               {
                 user: {
-                  fullName: 'Вася Пупкин',
+                  fullName: 'Василь Петренко',
                   avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',
                 },
-                text: 'Это тестовый комментарий',
+                text: 'Це тестовий коментар',
               },
               {
                 user: {
-                  fullName: 'Иван Иванов',
+                  fullName: 'Іван Коваленко',
                   avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',
                 },
-                text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',
+                text: 'Якщо текст займає три або більше рядків, аватар не вирівнюється за верхнім краєм. Щоб це виправити, задайте відповідну властивість вирівнювання.',
               },
             ]}
             isLoading={false}

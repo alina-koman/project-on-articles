@@ -21,7 +21,7 @@ export const getLastTags = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не вдалось отримати статті'
+            message: 'Не вдалося отримати статті'
         })
     }
 }
@@ -33,7 +33,7 @@ export const getAll = async (req, res) => {
      } catch (error) {
          console.log(error)
          res.status(500).json({
-             message: 'Не вдалось отримати статті'
+             message: 'Не вдалося отримати статті'
          })
      }
 }
@@ -55,7 +55,7 @@ export const getOne = async (req, res) => {
 
             if (!doc) {
                return res.status(404).json({
-                    message: 'Стаття не знайдена'
+                    message: 'Статтю не знайдено'
                 })
             }
 
@@ -63,7 +63,7 @@ export const getOne = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не вдалось отримати статті'
+            message: 'Не вдалося отримати статтю'
         })
     }
 }
@@ -75,7 +75,7 @@ export const remove = async (req, res) => {
 
         if (!doc) {
             return res.status(404).json({
-                message: 'Стаття не знайдена'
+                message: 'Статтю не знайдено'
             })
         }
 
@@ -85,7 +85,7 @@ export const remove = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не вдалось отримати статті'
+            message: 'Не вдалося видалити статтю'
         })
     }
 }
@@ -106,7 +106,7 @@ export const update = async (req, res) => {
 
         if (result.matchedCount === 0) {
             return res.status(404).json({
-                message: 'Стаття не знайдена'
+                message: 'Статтю не знайдено'
             })
         }
 
@@ -116,7 +116,7 @@ export const update = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не вдалось оновити статтю'
+            message: 'Не вдалося оновити статтю'
         })
     }
 }
@@ -137,7 +137,7 @@ export const create = async (req, res) => {
      } catch (error) {
         console.log(error)
         res.status(500).json({
-            message: 'Не вдалось створити статтю'
+            message: 'Не вдалося створити статтю'
         })
     }
  }

@@ -66,7 +66,7 @@ export const AddPost = () => {
             navigate(`/posts/${_id}`)
         } catch (error) {
             console.warn(error)
-            console.log('Помилка при створення статті!', error.response?.data)
+            console.log('Помилка під час створення статті!', error.response?.data)
         } finally {
             setLoading(false)
         }
@@ -81,7 +81,7 @@ export const AddPost = () => {
                  setImageUrl(data.imageUrl || data.imagesUrl || '')
              }).catch(error => {
                  console.warn(error)
-                 alert('Помилка при отриманні статті!')
+                 alert('Помилка під час отримання статті!')
              })
          }
     }, [id])
@@ -91,7 +91,7 @@ export const AddPost = () => {
         spellChecker: false,
         maxHeight: '400px',
         autofocus: true,
-        placeholder: 'Введите текст...',
+        placeholder: 'Введіть текст статті...',
         status: false,
         autosave: {
             enabled: true,
@@ -109,13 +109,13 @@ export const AddPost = () => {
   return (
     <Paper style={{ padding: 30 }}>
       <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
-        Загрузить превью
+        Завантажити обкладинку
       </Button>
       <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
         <>
             <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-                Удалить
+                Видалити
             </Button>
             <img className={styles.image} src={new URL(imageUrl, axios.defaults.baseURL).href} alt="Uploaded" />
         </>
@@ -125,7 +125,7 @@ export const AddPost = () => {
       <TextField
         classes={{ root: styles.title }}
         variant="standard"
-        placeholder="Заголовок статьи..."
+        placeholder="Заголовок статті..."
         value={title}
         onChange={e => setTitle(e.target.value) }
         fullWidth
@@ -133,7 +133,7 @@ export const AddPost = () => {
       <TextField
           classes={{ root: styles.tags }}
           variant="standard"
-          placeholder="Тэги"
+          placeholder="Теги"
           value={tags}
           onChange={e => setTags(e.target.value) }
           fullWidth
@@ -141,10 +141,10 @@ export const AddPost = () => {
       <SimpleMDE className={styles.editor} value={text} onChange={onChange} options={options} />
       <div className={styles.buttons}>
         <Button onClick={onSubmit} size="large" variant="contained">
-            {isEditing ? 'Зберегти' : 'Опубликовать'}
+            {isEditing ? 'Зберегти' : 'Опублікувати'}
         </Button>
         <a href="/">
-          <Button size="large">Отмена</Button>
+          <Button size="large">Скасувати</Button>
         </a>
       </div>
     </Paper>

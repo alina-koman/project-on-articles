@@ -1,21 +1,21 @@
 import { body } from "express-validator"
 
 export const  loginValidation = [
-    body("email", "Невірний формат пошти").isEmail(),
-    body("password", "Пароль повинен бути не менше 5 символів").isLength({min: 5})
+    body("email", "Некоректна адреса електронної пошти").isEmail(),
+    body("password", "Пароль має містити щонайменше 5 символів").isLength({min: 5})
 ]
 
 export const  registerValidation = [
-    body("email", "Невірний формат пошти").isEmail(),
-    body("password", "Пароль повинен бути не менше 5 символів").isLength({min: 5}),
+    body("email", "Некоректна адреса електронної пошти").isEmail(),
+    body("password", "Пароль має містити щонайменше 5 символів").isLength({min: 5}),
     body("fullName", "Вкажіть своє ім'я").isLength({min: 3}),
-    body("avatarUrl", "Невірна силка на аватар ").optional().isURL()
+    body("avatarUrl", "Некоректне посилання на аватар").optional().isURL()
 ]
 
 export const  postCreateValidation = [
-    body("title", "Введіть заголовок статті").isLength({min: 3}).isString(),
+    body("title", "Введіть назву статті").isLength({min: 3}).isString(),
     body("text", "Введіть текст статті").isLength({min: 3}).isString(),
-    body("tags", "Невірний формат тегів")
+    body("tags", "Некоректний формат тегів")
         .optional()
         .customSanitizer((tags) =>
             typeof tags === "string"
@@ -23,5 +23,5 @@ export const  postCreateValidation = [
                 : tags
         )
         .isArray(),
-    body("imagesUrl", "Невірна силка на зображення ").optional().isString()
+    body("imagesUrl", "Некоректне посилання на зображення").optional().isString()
 ]

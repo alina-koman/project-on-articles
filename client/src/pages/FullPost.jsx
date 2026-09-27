@@ -19,7 +19,7 @@ export const FullPost = () => {
                 setIsLoading(false)
             }).catch(err => {
             console.warn(err)
-            alert('Помилка при отриманні статті')
+            alert('Помилка під час отримання статті')
         }
     )
     }, [id])
@@ -47,17 +47,17 @@ export const FullPost = () => {
         items={[
           {
             user: {
-              fullName: "Вася Пупкин",
+              fullName: "Василь Петренко",
               avatarUrl: "https://mui.com/static/images/avatar/1.jpg",
             },
-            text: "Это тестовый комментарий 555555",
+            text: "Це тестовий коментар 555555",
           },
           {
             user: {
-              fullName: "Иван Иванов",
+              fullName: "Іван Коваленко",
               avatarUrl: "https://mui.com/static/images/avatar/2.jpg",
             },
-            text: "When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top",
+            text: "Якщо текст займає три або більше рядків, аватар не вирівнюється за верхнім краєм. Щоб це виправити, задайте відповідну властивість вирівнювання.",
           },
         ]}
         isLoading={false}

@@ -38,7 +38,7 @@ export const register = async (req, res) => {
      } catch (error) {
          console.log(error)
          res.status(500).json({
-             message: 'Не вдалось зареєструватись'
+             message: 'Не вдалося зареєструватися'
          })
      }
  }
@@ -57,7 +57,7 @@ export const register = async (req, res) => {
 
          if (!isValidPass) {
              return res.status(400).json({
-                 message: 'Не вірний логін або пароль'
+                 message: 'Неправильна адреса електронної пошти або пароль'
              })
          }
 
@@ -80,7 +80,7 @@ export const register = async (req, res) => {
      } catch (error) {
          console.log(error)
          res.status(500).json({
-             message: 'Не вдалось авторизуватись'
+             message: 'Не вдалося увійти'
          })
      }
  }
@@ -98,7 +98,7 @@ export const register = async (req, res) => {
          res.json(user)
      } catch (error) {
          res.status(500).json({
-             message: 'Помилка сервера'
+             message: 'Сталася помилка сервера'
          })
      }
  }
