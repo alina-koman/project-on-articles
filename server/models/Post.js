@@ -24,6 +24,7 @@
          ref: "User",
          required: true
      },
+     imageUrl: String,
      imagesUrl: String,
  }, {
      timestamps: true

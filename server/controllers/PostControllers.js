@@ -1,5 +1,13 @@
 import PostModel from "../models/Post.js"
 
+const serializePost = (post) => {
+    const data = post.toObject()
+    return {
+        ...data,
+        imageUrl: data.imageUrl || data.imagesUrl
+    }
+}
+
 export const getLastTags = async (req, res) => {
     try {
         const posts = await PostModel.find().limit(5).exec()
@@ -21,7 +29,7 @@ export const getLastTags = async (req, res) => {
 export const getAll = async (req, res) => {
      try {
          const posts = await PostModel.find().populate('user').exec()
-         res.json(posts)
+         res.json(posts.map(serializePost))
      } catch (error) {
          console.log(error)
          res.status(500).json({
@@ -51,7 +59,7 @@ export const getOne = async (req, res) => {
                 })
             }
 
-            return  res.json(doc)
+            return res.json(serializePost(doc))
     } catch (error) {
         console.log(error)
         res.status(500).json({
@@ -118,7 +126,7 @@ export const create = async (req, res) => {
         const doc = new PostModel({
             title: req.body.title,
             text: req.body.text,
-            imagesUrl: req.body.imagesUrl,
+            imageUrl: req.body.imageUrl,
             tags : req.body.tags,
             user: req.userId,
         })

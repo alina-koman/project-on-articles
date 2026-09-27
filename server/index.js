@@ -19,7 +19,9 @@ const storage = multer.diskStorage({
    cb(null, 'uploads')
   },
  filename: (_, file, cb) => {
-   cb(null, file.originalname)
+     const ext = file.originalname.split('.').pop();
+     const safeName = `${Date.now()}-${Math.round(Math.random() * 1e9)}.${ext}`;
+     cb(null, safeName);
  }
 })
 
@@ -35,7 +37,7 @@ app.get('/auth/me', checkAuth, UserController.getMe)
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
  res.json({
-  url: `/uploads/${req.file.originalname}`,
+  url: `/uploads/${req.file.filename}`,
  })
 })
 
