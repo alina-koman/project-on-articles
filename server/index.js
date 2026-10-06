@@ -2,6 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import multer from 'multer'
 import cors from 'cors'
+import { mkdirSync } from 'node:fs'
+import path from 'node:path'
 import 'dotenv/config'
 
 import {commentCreateValidation, loginValidation, postCreateValidation, registerValidation} from './validations.js'
@@ -14,12 +16,15 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 4444;
+const uploadsDir = path.resolve('uploads')
+
+mkdirSync(uploadsDir, { recursive: true })
 
 const app = express()
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
-   cb(null, 'uploads')
+   cb(null, uploadsDir)
   },
  filename: (_, file, cb) => {
      const ext = file.originalname.split('.').pop();
@@ -32,7 +37,7 @@ const upload = multer({storage})
 
 app.use(express.json())
 app.use(cors())
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static(uploadsDir))
 
 app.post('/auth/login', loginValidation,  handleValidationErrors,  UserController.login)
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register)
