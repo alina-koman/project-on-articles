@@ -1,25 +1,25 @@
 import Container from "@mui/material/Container";
 import { Routes, Route } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 import { Header } from "./components";
+import { Footer } from "./components/Footer";
 import { Home, FullPost, Registration, AddPost, Login, TagPosts } from "./pages";
 import {useEffect} from "react";
-import {fetchAuthMe, selectIsAuth} from "./redux/slices/auth";
+import {fetchAuthMe} from "./redux/slices/auth";
 
 function App() {
     const dispatch = useDispatch()
-    const isAuth = useSelector(selectIsAuth)
 
     useEffect(() => {
         dispatch(fetchAuthMe())
     }, [dispatch]);
 
   return (
-    <>
+    <div className="appShell">
       <Header />
-      <Container maxWidth="lg" sx={{ pb: { xs: 3, sm: 4, md: 6 } }}>
-      <Routes>
+      <Container component="main" maxWidth="lg" sx={{ flexGrow: 1, pb: { xs: 3, sm: 4, md: 6 } }}>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tags/:tag" element={<TagPosts />} />
           <Route path="/posts/:id" element={<FullPost />} />
@@ -27,9 +27,10 @@ function App() {
           <Route path="/add-post" element={<AddPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
-      </Routes>
+        </Routes>
       </Container>
-    </>
+      <Footer />
+    </div>
   );
 }
 

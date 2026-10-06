@@ -1,0 +1,44 @@
+.root {
+  margin-top: auto;
+  padding: 24px 0;
+  background: #293d32;
+  color: #f7f5ef;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.brand {
+  color: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.note {
+  margin: 0;
+  color: rgba(247, 245, 239, 0.75);
+  text-align: center;
+}
+
+.copyright {
+  color: rgba(247, 245, 239, 0.65);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .root {
+    padding: 20px 0;
+  }
+
+  .inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}

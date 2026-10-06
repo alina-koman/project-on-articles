@@ -8,6 +8,12 @@ body {
   overflow-x: hidden;
 }
 
+.appShell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 * {
   box-sizing: border-box;
 }
