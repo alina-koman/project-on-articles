@@ -2,15 +2,18 @@ import express from 'express'
 import mongoose from 'mongoose'
 import multer from 'multer'
 import cors from 'cors'
+import 'dotenv/config'
 
 import {commentCreateValidation, loginValidation, postCreateValidation, registerValidation} from './validations.js'
 
 import { CommentController, UserController, PostController } from "./controllers/index.js"
 import {handleValidationErrors, checkAuth} from "./utils/index.js"
   
-mongoose.connect('mongodb+srv://alinakoman962_db_user:qwerty123@cluster0.tqz0nej.mongodb.net/blog?appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to DB'))
     .catch(err => console.log(err));
+
+const PORT = process.env.PORT || 3000;
 
 const app = express()
 
