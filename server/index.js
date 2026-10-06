@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to DB'))
     .catch(err => console.log(err));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4444;
 
 const app = express()
 
@@ -55,7 +55,7 @@ app.post('/posts', checkAuth, postCreateValidation, handleValidationErrors, Post
 app.delete( '/posts/:id', checkAuth, PostController.remove)
 app.patch( '/posts/:id', checkAuth, postCreateValidation, handleValidationErrors, PostController.update)
 
-app.listen(process.env.PORT || 4444, (err) => {
+app.listen(PORT, (err) => {
  if (err) return console.log(err)
 
  console.log('Server OK')
