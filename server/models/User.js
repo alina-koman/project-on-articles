@@ -12,7 +12,8 @@
      },
      passwordHash: {
            type: String,
-         required: true
+         required: true,
+         select: false
      },
      avatarUrl: String,
  }, {

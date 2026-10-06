@@ -45,7 +45,7 @@ export const register = async (req, res) => {
 
  export const login = async (req, res) => {
      try {
-         const user = await UserModel.findOne({email: req.body.email})
+         const user = await UserModel.findOne({email: req.body.email}).select('+passwordHash')
 
          if (!user) {
              return res.status(400).json({

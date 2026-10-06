@@ -43,7 +43,7 @@ export const getLastTags = async (req, res) => {
 
 export const getAll = async (req, res) => {
      try {
-         const posts = await PostModel.find().populate('user').exec()
+         const posts = await PostModel.find().populate('user', 'fullName avatarUrl').exec()
          res.json(posts.map(serializePost))
      } catch (error) {
          console.log(error)
@@ -67,6 +67,7 @@ export const getOne = async (req, res) => {
             {
                 returnDocument: 'after'
             })
+            .populate('user', 'fullName avatarUrl')
 
             if (!doc) {
                return res.status(404).json({

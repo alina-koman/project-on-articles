@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 4444;
-const uploadsDir = path.resolve('uploads')
+const uploadsDir = path.resolve(process.env.UPLOADS_DIR || 'uploads')
 
 mkdirSync(uploadsDir, { recursive: true })
 
@@ -43,9 +43,24 @@ app.post('/auth/login', loginValidation,  handleValidationErrors,  UserControlle
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register)
 app.get('/auth/me', checkAuth, UserController.getMe)
 
-app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
- res.json({
-  url: `/uploads/${req.file.filename}`,
+app.post('/upload', checkAuth, (req, res) => {
+ upload.single('image')(req, res, (error) => {
+  if (error) {
+   console.error('Image upload failed:', error)
+   return res.status(500).json({
+    message: 'Не вдалося зберегти зображення на сервері'
+   })
+  }
+
+  if (!req.file) {
+   return res.status(400).json({
+    message: 'Файл зображення не отримано'
+   })
+  }
+
+  return res.json({
+   url: `/uploads/${req.file.filename}`,
+  })
  })
 })
 

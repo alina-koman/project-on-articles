@@ -34,7 +34,7 @@ export const AddPost = () => {
             setImageUrl(data.url)
         } catch (error) {
             console.warn(error)
-            alert('Помилка при завантаженні файлу')
+            alert(error.response?.data?.message || 'Помилка при завантаженні файлу')
          }
     };
 
