@@ -108,20 +108,20 @@ export const AddPost = () => {
 
   return (
     <Paper sx={{ p: { xs: 2, sm: 4 } }}>
-      <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
-        Завантажити обкладинку
-      </Button>
-      <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
-      {imageUrl && (
-        <>
+      <div className={styles.imageActions}>
+        <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
+          Завантажити обкладинку
+        </Button>
+        <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
+        {imageUrl && (
             <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-                Видалити
+              Видалити
             </Button>
-            <img className={styles.image} src={new URL(imageUrl, axios.defaults.baseURL).href} alt="Uploaded" />
-        </>
+        )}
+      </div>
+      {imageUrl && (
+        <img className={styles.image} src={new URL(imageUrl, axios.defaults.baseURL).href} alt="Uploaded" />
       )}
-      <br />
-      <br />
       <TextField
         classes={{ root: styles.title }}
         variant="standard"
