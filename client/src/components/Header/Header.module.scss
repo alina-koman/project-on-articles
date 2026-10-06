@@ -2,7 +2,7 @@
   background-color: #fffefa;
   padding: 14px 0;
   border-bottom: 1px solid #e8e4dc;
-  margin-bottom: 32px;
+  margin-bottom: clamp(20px, 4vw, 32px);
 }
 
 .inner {
@@ -15,10 +15,11 @@
   background-color: #456b57;
   color: #fff;
   font-weight: 700;
-  line-height: 38px;
+  line-height: 40px;
   border-radius: 9px;
-  padding: 0 14px;
+  padding: 0 16px;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color 0.15s ease, transform 0.15s ease;
 
   &:hover {
@@ -34,5 +35,38 @@
 
   button {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .root {
+    padding: 10px 0;
+  }
+
+  .inner {
+    gap: 12px;
+  }
+
+  .logo {
+    line-height: 36px;
+    padding: 0 12px;
+  }
+
+  .buttons {
+    justify-content: flex-end;
+    gap: 4px;
+
+    button {
+      min-width: 0;
+      padding: 6px 9px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .buttons {
+    flex-wrap: wrap;
   }
 }

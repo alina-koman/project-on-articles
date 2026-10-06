@@ -107,7 +107,7 @@ export const AddPost = () => {
     }
 
   return (
-    <Paper style={{ padding: 30 }}>
+    <Paper sx={{ p: { xs: 2, sm: 4 } }}>
       <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
         Завантажити обкладинку
       </Button>

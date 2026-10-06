@@ -3,5 +3,34 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f3ee;
+  background: #f5f3ee;
+  color: #292f2b;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.MuiListItemText-root {
+  min-width: 0;
+}
+
+.MuiListItemText-secondary {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
 }

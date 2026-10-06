@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <Header />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ pb: { xs: 3, sm: 4, md: 6 } }}>
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tags/:tag" element={<TagPosts />} />

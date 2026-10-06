@@ -72,8 +72,8 @@ export const Home = () => {
         <Tab label="Нові" />
         <Tab label="Популярні" />
       </Tabs>
-      <Grid container spacing={4}>
-        <Grid xs={8} item>
+      <Grid container spacing={{ xs: 2, md: 4 }}>
+        <Grid xs={12} md={8} item>
           {(isPostLoading ? [...Array(5)] : sortedPosts).map((obj, index) => (
               isPostLoading ? (<Post key={index}  isLoading={true} />) : (
                   <Post
@@ -91,7 +91,7 @@ export const Home = () => {
                   )
           ))}
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={12} md={4} item>
           <TagsBlock items={tags.items}  isLoading={isTagsLoading} />
           <CommentsBlock
             items={comments}

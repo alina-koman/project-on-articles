@@ -1,6 +1,8 @@
 .title {
+  margin: 12px 0 !important;
+
   input {
-    font-size: 42px;
+    font-size: clamp(24px, 5vw, 42px);
     font-weight: 900;
   }
 
@@ -14,19 +16,23 @@
 
 .image {
   width: 100%;
+  max-height: 420px;
+  margin-top: 16px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .tags {
-  margin: 15px 0;
+  margin: 12px 0 20px !important;
 }
 
 .editor {
-  margin: 30px -30px;
+  margin: 24px 0;
 
   :global {
     .cm-s-easymde {
       border: 0;
-      font-size: 22px;
+      font-size: clamp(16px, 2vw, 20px);
     }
     .editor-toolbar {
       border: 0;
@@ -37,8 +43,29 @@
 
 .buttons {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 
   button {
-    margin-right: 15px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .editor {
+    margin: 18px 0;
+
+    :global {
+      .editor-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  .buttons {
+    button {
+      min-height: 44px;
+    }
   }
 }

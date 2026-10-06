@@ -1,7 +1,19 @@
 .root {
   margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 14px !important;
 }
 
 .title {
-  padding: 15px 15px 0 15px;
+  padding: 18px 20px 4px 20px;
+}
+
+@media (max-width: 900px) {
+  .root {
+    margin-bottom: 16px;
+  }
+
+  .title {
+    padding: 16px 16px 4px;
+  }
 }
