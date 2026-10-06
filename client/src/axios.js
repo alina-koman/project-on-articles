@@ -1,7 +1,9 @@
  import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://project-on-articles.onrender.com/" && "http://localhost:4444",
+    baseURL: window.location.hostname === "localhost"
+    ? "http://localhost:4444"
+    : "https://project-on-articles.onrender.com",
 })
 
  instance.interceptors.request.use((config) => {
